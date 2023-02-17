@@ -1,17 +1,18 @@
-void sortByName(){
-    student* tempFirstName;
+void sortStudentByName(){
 
     if (SHead == NULL) {
         return;
     }else {
-        for (student *current = SHead; current != NULL; current = current->next) {
-            for (student *index = current->next; index != NULL; index = index->next) {
-                if (current->firstName > index->firstName) {
-                    tempFirstName = current;
-                    current = index;
-                    index= tempFirstName;
+        student* current = SHead, *prev = NULL, *next = NULL;
+        while(current != NULL){
+            if(current->firstName > current->next->firstName){
+                if(current == SHead){
+                    
                 }
             }
+            prev = current;
+            current = current->next;
+            next = current->next;
         }
     }
 }

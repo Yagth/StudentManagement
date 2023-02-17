@@ -7,7 +7,6 @@ struct course{
     string courseTitle;
     int creditHour;
     course* next;
-    course* prev;
 }*CHead=NULL;
 
 struct student {
@@ -17,5 +16,4 @@ struct student {
     int age;
     string sex;
     student* next;
-    student* prev;
 }* SHead=NULL;

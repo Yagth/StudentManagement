@@ -8,6 +8,8 @@ int main(){
     registerStudent();
     registerStudent();
 
+    sortStudentByName();
+    
     display();
 
     // insertCourse();
