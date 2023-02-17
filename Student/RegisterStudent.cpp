@@ -29,7 +29,3 @@ void registerStudent(){
             st->prev = curr->prev;
         }
 }
-
-
-
-    student* current = SHead;
