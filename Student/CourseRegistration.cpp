@@ -1,5 +1,3 @@
-#include "DataStrucutres.h"
-
 course* getCourse(){
     course* newcourse = new course();
     cout << "Enter Course number ";
