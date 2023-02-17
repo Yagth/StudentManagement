@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-#include "DataStrucutres.h"
-
 void registerStudent(){
         student * temp = SHead;
         cout << "registerStudent";
