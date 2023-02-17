@@ -17,13 +17,12 @@ void sortByName(){
 }
 
 void display() {
+    student* current = SHead;
+
     if (SHead == NULL) {
         cout << "List is empty." << endl;
         return;
     }
-
-    student* current = SHead;
-
     while (current != NULL) {
         cout << "ID: " << current->id << endl;
         cout << "First name: " << current->firstName << endl;

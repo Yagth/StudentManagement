@@ -19,14 +19,17 @@ void registerStudent(){
         cin >> st->age;
         cout << "Enter Sex : ";
         cin >> st->sex;
+
+        st->next = NULL;
+        st->prev = NULL;
         
         if(SHead == NULL) SHead = st;
-        else if(curr != NULL){
-            st->next = curr->next;
+        else{
+            curr->next = st;
             st->prev = curr->prev;
         }
-        curr = st;
 }
 
 
 
+    student* current = SHead;
