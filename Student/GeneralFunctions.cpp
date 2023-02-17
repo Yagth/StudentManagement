@@ -7,7 +7,7 @@ void sortStudentByName(){
         while(current != NULL){
             if(current->firstName > current->next->firstName){
                 if(current == SHead){
-                    
+                    prev = current->
                 }
             }
             prev = current;
