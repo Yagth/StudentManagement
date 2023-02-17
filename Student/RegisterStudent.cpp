@@ -1,20 +1,8 @@
 #include <bits/stdc++.h>
-
-using namespace std;
-
-struct student {
-    string id;
-    string firstName;
-    string lastName;
-    int age;
-    string sex;
-    student *next;
-    student *prev;
-
-}* head = NULL;
+#include "DataStrucutres.h"
 
 void registerStudent(){
-        student * temp = head;
+        student * temp = SHead;
         cout << "registerStudent";
         while(temp != NULL){
             temp = temp->next;

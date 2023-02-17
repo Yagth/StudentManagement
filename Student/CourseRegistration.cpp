@@ -1,17 +1,4 @@
-#include <iostream>
-#include  <bits/stdc++.h>
-
-using namespace std;
-
-struct course{
-    int courseNo;
-    string courseTitle;
-    int creditHour;
-    course* next;
-    course* prev;
-};
-
-course* head = NULL;
+#include "DataStrucutres.h"
 
 course* getCourse(){
     course* newcourse = new course();
@@ -27,12 +14,12 @@ course* getCourse(){
 }
 void insertCourse(){
     course* newCourse = getCourse();
-    if(head==NULL){
-        head = newCourse;
+    if(CHead==NULL){
+        CHead = newCourse;
         return;
     }
     else{
-       course* temp = head;
+       course* temp = CHead;
        while(temp->next != NULL){
         temp = temp->next;
        }
@@ -49,10 +36,3 @@ void display(course* n){
     n = n->next;
   }
   }
-
-
-
-int main(){
-    insertCourse();
-    display(head);
-}
