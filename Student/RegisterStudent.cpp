@@ -20,7 +20,8 @@ void registerStudent(){
         cout << "Enter Sex : ";
         cin >> st->sex;
         
-        if(curr != NULL){
+        if(SHead == NULL) SHead = st;
+        else if(curr != NULL){
             st->next = curr->next;
             st->prev = curr->prev;
         }

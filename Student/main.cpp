@@ -5,7 +5,10 @@
 
 int main(){
     registerStudent();
-    // display();
+    registerStudent();
+    registerStudent();
+
+    display();
 
     // insertCourse();
     // insertCourse();
