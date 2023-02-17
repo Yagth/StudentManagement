@@ -4,7 +4,7 @@
 #include "CourseRegistration.cpp"
 
 int main(){
-    // registerStudent();
+    registerStudent();
     // display();
 
     // insertCourse();

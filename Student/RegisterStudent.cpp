@@ -1,25 +1,30 @@
 void registerStudent(){
-        student * temp = SHead;
+        student * curr = SHead;
         cout << "registerStudent";
-        while(temp != NULL){
-            temp = temp->next;
+
+        //Check if List is not empty
+        while(SHead != NULL && curr->next != NULL){
+            curr = curr->next;
         }
-        student *temp1 = new student();
+        
+        student *st = new student();
         cout << "Enter ID : ";
         cin.ignore();
-        cin >> temp1->id;
+        cin >> st->id;
         cout << "Enter First name : ";
-        cin >> temp1->firstName;
+        cin >> st->firstName;
         cout << "Enter Last name : ";
-        cin >> temp1->lastName;
+        cin >> st->lastName;
         cout << "Enter Age : ";
-        cin >> temp1->age;
+        cin >> st->age;
         cout << "Enter Sex : ";
-        cin >> temp1->sex;
-    
-        temp->next = temp1;
-        temp1->next = NULL;
-        temp1->prev = temp;
+        cin >> st->sex;
+        
+        if(curr != NULL){
+            st->next = curr->next;
+            st->prev = curr->prev;
+        }
+        curr = st;
 }
 
 
