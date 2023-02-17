@@ -1,6 +1,14 @@
 #include "DataStrucutres.h"
 #include "GeneralFunctions.cpp"
+#include "RegisterStudent.cpp"
+#include "CourseRegistration.cpp"
 
 int main(){
-    display();
+    // registerStudent();
+    // display();
+
+    // insertCourse();
+    // insertCourse();
+    // insertCourse();
+    // display(CHead);
 }

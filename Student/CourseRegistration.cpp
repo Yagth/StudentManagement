@@ -25,6 +25,7 @@ void insertCourse(){
        newCourse->prev = temp;
     }
 }
+
 void display(course* n){
   while(n != NULL){
     cout << "course Number " << n->courseNo << endl;
@@ -33,4 +34,4 @@ void display(course* n){
     cout << endl;
     n = n->next;
   }
-  }
+}
