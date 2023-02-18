@@ -102,15 +102,17 @@ struct student
             cout << "No registered courses" << endl;
             return;
         }
-
         while (temp != NULL)
+        {
             cout << "\tCourseNo: " << temp->courseNo;
-        cout << "\tGrade: ";
+            cout << "\tGrade: ";
 
-        if (temp->grade == -1.0)
-            cout << "Not determined" << endl;
-        else
-            cout << temp->grade << endl;
+            if (temp->grade == -1.0)
+                cout << "Not determined" << endl;
+            else
+                cout << temp->grade << endl;
+            temp = temp->next;
+        }
     }
 
 } *SHead = NULL;
@@ -131,7 +133,6 @@ student *findStudentById(string id)
                 return current;
             current = current->next;
         }
-        cout << "Student not found" << endl;
     }
     return NULL;
 }
@@ -185,7 +186,6 @@ void recordCourse()
     if (CHead == NULL)
     {
         CHead = newCourse;
-        return;
     }
     else
     {
@@ -195,8 +195,8 @@ void recordCourse()
             temp = temp->next;
         }
         temp->next = newCourse;
-        cout << "Course Successfully added to list" << endl;
     }
+    cout << "Course Successfully added to list" << endl;
 }
 
 void display(course *n)
@@ -266,7 +266,6 @@ student *getStudent()
 {
     student *st = new student();
     cout << "Enter ID : ";
-    cin.ignore(); // To Clear the buffer memory before the next input
     cin >> st->id;
 
     student *temp = findStudentById(st->id);
@@ -276,12 +275,11 @@ student *getStudent()
         cout << "Student with Id: " << st->id << " is already registered." << endl;
         return NULL;
     }
-
+    cin.ignore();
     cout << "Enter First name : ";
-    cin.ignore();
     cin >> st->firstName;
-    cout << "Enter Last name : ";
     cin.ignore();
+    cout << "Enter Last name : ";
     cin >> st->lastName;
     cout << "Enter Age : ";
 
@@ -335,16 +333,18 @@ void registerStudent()
 int main()
 {
     registerStudent();
+    registerStudent();
+
     recordCourse();
+    recordCourse();
+
     student *temp = SHead;
     course *tempCourse = CHead;
-    // temp->addCourse(tempCourse->courseNo);
+    temp->addCourse(tempCourse->courseNo);
+    temp->addCourse(tempCourse->next->courseNo);
 
-    // temp->displayStudentInfo();
-    // registerStudent();
-    // registerStudent();
+    temp->displayStudentInfo();
+    temp->next->displayStudentInfo();
 
-    // recordCourse();
-    // recordCourse();
     // display(CHead);
 }
