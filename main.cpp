@@ -2,7 +2,10 @@
 
 int main()
 {
-    loadLinkedList("students");
+    bool loaded = loadLinkedList("students");
+    if (loaded)
+        cout << "Loaded" << endl;
+    waitForUser();
     dispMenu();
     // registerStudent();
     // registerStudent();

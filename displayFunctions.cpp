@@ -373,6 +373,11 @@ bool saveLinkedList(const char *filename)
         fout.write(reinterpret_cast<const char *>(&(current->next)), sizeof(current->next));
         fout.write(reinterpret_cast<const char *>(&(current->prev)), sizeof(current->prev));
 
+        fout.write(reinterpret_cast<const char *>(&(current->getStudentCourse)), sizeof(current->getStudentCourse));
+        fout.write(reinterpret_cast<const char *>(&(current->findStudentCourse)), sizeof(current->findStudentCourse));
+        fout.write(reinterpret_cast<const char *>(&(current->gradeStudent)), sizeof(current->gradeStudent));
+        fout.write(reinterpret_cast<const char *>(&(current->displayStudentInfo)), sizeof(current->displayStudentInfo));
+
         if (current->head != NULL) // check if student has courses
         {
             int courseCount = 0;
