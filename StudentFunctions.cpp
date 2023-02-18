@@ -1,4 +1,5 @@
 #include "dataStructures.h"
+// using namespace std;
 
 student::studentCourse *student::getStudentCourse(string courseNo)
 {
@@ -133,6 +134,11 @@ void swapNodes(student *node1, student *node2)
     node2->age = temp->age;
     node2->sex = temp->sex;
 }
+void toLowerCase(string str){
+    for(int i = 0;i < str.length();i++){
+       str[i] = tolower(str[i]);
+    }
+}
 
 void sortStudentByName()
 {
@@ -151,7 +157,10 @@ void sortStudentByName()
             while (index != NULL)
             {
                 student *temp = new student();
-                if (current->firstName > index->firstName)
+                string fname = current->firstName;
+                string lname = current->lastName;
+                toLowerCase(fname);  toLowerCase(lname);
+                if (fname > lname)
                 {
                     // Swap the elements
                     swapNodes(current, index);
