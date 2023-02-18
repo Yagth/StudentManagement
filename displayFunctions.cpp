@@ -145,8 +145,16 @@ void searchStudentD()
     cin >> id;
 
     student *st = findStudentById(id);
-    cout << "Student found succesfully" << endl;
+    if (st == NULL)
+    {
+        cout << "Student with id: " << id << " couldn't be found" << endl;
+        waitForUser();
+        dispMenu();
+    }
+    cout << "Student found" << endl;
     st->displayStudentInfo();
+    waitForUser();
+    dispMenu();
 }
 
 void dispMenu()
