@@ -64,6 +64,28 @@ void display(course *n)
     }
 }
 
+void swapNodes(student *node1, student *node2)
+{
+    student *temp = new student();
+    temp->firstName = node1->firstName;
+    temp->id = node1->id;
+    temp->lastName = node1->lastName;
+    temp->age = node1->age;
+    temp->sex = node1->sex;
+
+    node1->firstName = node2->firstName;
+    node1->lastName = node2->lastName;
+    node1->id = node2->id;
+    node1->age = node2->age;
+    node1->sex = node2->sex;
+
+    node2->id = temp->id;
+    node2->firstName = temp->firstName;
+    node2->lastName = temp->lastName;
+    node2->age = temp->age;
+    node2->sex = temp->sex;
+}
+
 void sortStudentByName()
 {
 
@@ -74,39 +96,17 @@ void sortStudentByName()
     }
     else
     {
-        student *current = SHead, *index = NULL, *temp;
+        student *current = SHead, *index = NULL, *temp, *temp2;
         while (current != NULL)
         {
             index = current->next;
             while (index != NULL)
             {
+                student *temp = new student();
                 if (current->firstName > index->firstName)
                 {
-                    temp = current->prev;
-                    if (temp != NULL)
-                    {
-                        temp->next = index;
-                        index->prev = temp;
-                    }
-                    else
-                    {
-                        index->prev = NULL;
-                    }
-
-                    temp = index->next;
-
-                    if (temp != NULL)
-                    {
-                        temp->prev = current;
-                        current->next = temp;
-                    }
-                    else
-                    {
-                        current->next = NULL;
-                    }
-
-                    index->next = current;
-                    current->prev = index;
+                    // Swap the elements
+                    swapNodes(current, index);
                 }
                 index = index->next;
             }
@@ -181,7 +181,6 @@ int main()
     registerStudent();
 
     sortStudentByName();
-
     display();
 
     // insertCourse();-
