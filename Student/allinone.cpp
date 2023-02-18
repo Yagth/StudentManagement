@@ -345,6 +345,6 @@ int main()
 
     temp->displayStudentInfo();
     temp->next->displayStudentInfo();
-
-    // display(CHead);
+    cout << endl;
+    display(CHead);
 }
