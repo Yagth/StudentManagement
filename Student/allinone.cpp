@@ -1,66 +1,4 @@
-#include <bits/stdc++.h>
 
-using namespace std;
-
-struct course
-{
-    string courseNo;
-    string courseTitle;
-    int creditHour;
-    course *next;
-    course *prev;
-
-} *CHead = NULL;
-
-struct student
-{
-    string id;
-    string firstName;
-    string lastName;
-    int age;
-    string sex;
-    struct studentCourse
-    {
-        string courseNo;
-        float grade;
-        studentCourse *next;
-    } *head;
-
-    student *next;
-    student *prev;
-
-    studentCourse *getStudentCourse(string courseNo);
-
-    void addCourse(string courseNo);
-    studentCourse *findStudentCourse(string courseNo);
-
-    void gradeStudent(string courseNo, float grade);
-
-    void displayStudentInfo();
-
-} *SHead = NULL;
-
-student *findStudentById(string id);
-
-course *findCourseByNo(string courseNo);
-
-void displayAllStudents();
-void deleteStudentById(string id);
-
-void deleteCourseByCourseNumber(string courseNo);
-
-course *getCourse();
-void recordCourse();
-
-void display(course *n);
-
-void swapNodes(student *node1, student *node2);
-
-void sortStudentByName();
-
-student *getStudent();
-
-void registerStudent();
 
 int main()
 {
@@ -364,15 +302,16 @@ void recordCourse()
     cout << "Course Successfully added to list" << endl;
 }
 
-void display(course *n)
+void displayAllCourses()
 {
-    while (n != NULL)
+    course *current = CHead;
+    while (current != NULL)
     {
-        cout << "course Number " << n->courseNo << endl;
-        cout << "course Title " << n->courseTitle << endl;
-        cout << "course credit Hour " << n->creditHour << endl;
+        cout << "course Number " << current->courseNo << endl;
+        cout << "course Title " << current->courseTitle << endl;
+        cout << "course credit Hour " << current->creditHour << endl;
         cout << endl;
-        n = n->next;
+        current = current->next;
     }
 }
 
