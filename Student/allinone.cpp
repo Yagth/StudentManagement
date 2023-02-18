@@ -29,94 +29,151 @@ struct student
     student *next;
     student *prev;
 
-    studentCourse *getStudentCourse(string courseNo)
-    {
-        studentCourse *temp = new studentCourse();
-        temp->courseNo = courseNo;
-        temp->grade = -1.0;
-        temp->next = NULL;
+    studentCourse *getStudentCourse(string courseNo);
 
-        return temp;
-    }
+    void addCourse(string courseNo);
+    studentCourse *findStudentCourse(string courseNo);
 
-    void addCourse(string courseNo)
-    {
-        studentCourse *temp = getStudentCourse(courseNo);
+    void gradeStudent(string courseNo, float grade);
 
-        if (this->head == NULL)
-        {
-            this->head = temp;
-        }
-        else
-        {
-            studentCourse *current = this->head;
-            while (current->next != NULL)
-            {
-                current = current->next;
-            }
-            current->next = temp;
-        }
-    }
-
-    studentCourse *findStudentCourse(string courseNo)
-    {
-        studentCourse *current = this->head;
-
-        if (current == NULL)
-        {
-            return NULL;
-        }
-        else
-        {
-            while (current != NULL)
-            {
-                if (current->courseNo == courseNo)
-                {
-                    return current;
-                }
-                current = current->next;
-            }
-        }
-        return NULL;
-    }
-
-    void gradeStudent(string courseNo, float grade)
-    {
-        studentCourse *courseInfo = findStudentCourse(courseNo);
-        courseInfo->grade = grade;
-    }
-
-    void displayStudentInfo()
-    {
-        cout << "ID: " << this->id << endl;
-        cout << "First name: " << this->firstName << endl;
-        cout << "Last name: " << this->lastName << endl;
-        cout << "Age: " << this->age << endl;
-        cout << "Sex: " << this->sex << endl;
-
-        cout << "Registered courses" << endl;
-
-        studentCourse *temp = this->head;
-
-        if (temp == NULL)
-        {
-            cout << "No registered courses" << endl;
-            return;
-        }
-        while (temp != NULL)
-        {
-            cout << "\tCourseNo: " << temp->courseNo;
-            cout << "\tGrade: ";
-
-            if (temp->grade == -1.0)
-                cout << "Not determined" << endl;
-            else
-                cout << temp->grade << endl;
-            temp = temp->next;
-        }
-    }
+    void displayStudentInfo();
 
 } *SHead = NULL;
+
+student *findStudentById(string id);
+
+course *findCourseByNo(string courseNo);
+
+void displayAllStudents();
+void deleteStudentById(string id);
+
+void deleteCourseByCourseNumber(string courseNo);
+
+course *getCourse();
+void recordCourse();
+
+void display(course *n);
+
+void swapNodes(student *node1, student *node2);
+
+void sortStudentByName();
+
+student *getStudent();
+
+void registerStudent();
+
+int main()
+{
+    // registerStudent();
+    registerStudent();
+    registerStudent();
+    registerStudent();
+
+    student *temp = SHead;
+
+    deleteStudentById(temp->id);
+    displayAllStudents();
+
+    // recordCourse();
+    // recordCourse();
+
+    // student *temp = SHead;
+    // course *tempCourse = CHead;
+    // temp->addCourse(tempCourse->courseNo);
+    // temp->addCourse(tempCourse->next->courseNo);
+
+    // temp->displayStudentInfo();
+    // temp->next->displayStudentInfo();
+    // cout << endl;
+    // display(CHead);
+}
+
+student::studentCourse *student::getStudentCourse(string courseNo)
+{
+    studentCourse *temp = new studentCourse();
+    temp->courseNo = courseNo;
+    temp->grade = -1.0;
+    temp->next = NULL;
+
+    return temp;
+}
+
+void student::addCourse(string courseNo)
+{
+    studentCourse *temp = getStudentCourse(courseNo);
+
+    if (this->head == NULL)
+    {
+        this->head = temp;
+    }
+    else
+    {
+        studentCourse *current = this->head;
+        while (current->next != NULL)
+        {
+            current = current->next;
+        }
+        current->next = temp;
+    }
+}
+
+student::studentCourse *student::findStudentCourse(string courseNo)
+{
+    studentCourse *current = this->head;
+
+    if (current == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        while (current != NULL)
+        {
+            if (current->courseNo == courseNo)
+            {
+                return current;
+            }
+            current = current->next;
+        }
+    }
+    return NULL;
+}
+
+void student::gradeStudent(string courseNo, float grade)
+{
+    studentCourse *courseInfo = findStudentCourse(courseNo);
+    courseInfo->grade = grade;
+}
+
+void student::displayStudentInfo()
+{
+    cout << "ID: " << this->id << endl;
+    cout << "First name: " << this->firstName << endl;
+    cout << "Last name: " << this->lastName << endl;
+    cout << "Age: " << this->age << endl;
+    cout << "Sex: " << this->sex << endl;
+
+    cout << "Registered courses" << endl;
+
+    studentCourse *temp = this->head;
+
+    if (temp == NULL)
+    {
+        cout << "No registered courses" << endl;
+        return;
+    }
+    while (temp != NULL)
+    {
+        cout << "\tCourseNo: " << temp->courseNo;
+        cout << "\tGrade: ";
+
+        if (temp->grade == -1.0)
+            cout << "Not determined" << endl;
+        else
+            cout << temp->grade << endl;
+        temp = temp->next;
+    }
+}
 
 student *findStudentById(string id)
 {
@@ -286,6 +343,7 @@ course *getCourse()
 
     return newcourse;
 }
+
 void recordCourse()
 {
     course *newCourse = getCourse();
@@ -435,30 +493,4 @@ void registerStudent()
     }
 
     cout << "Student registration succesfull" << endl;
-}
-
-int main()
-{
-    // registerStudent();
-    registerStudent();
-    registerStudent();
-    registerStudent();
-
-    student *temp = SHead;
-
-    deleteStudentById(temp->id);
-    displayAllStudents();
-
-    // recordCourse();
-    // recordCourse();
-
-    // student *temp = SHead;
-    // course *tempCourse = CHead;
-    // temp->addCourse(tempCourse->courseNo);
-    // temp->addCourse(tempCourse->next->courseNo);
-
-    // temp->displayStudentInfo();
-    // temp->next->displayStudentInfo();
-    // cout << endl;
-    // display(CHead);
 }
