@@ -121,3 +121,11 @@ void displayAllCourses()
         current = current->next;
     }
 }
+void course::displayCourseInfo()
+{
+    cout << "Course Info" << endl
+         << endl;
+    cout << "\tCourseNo: " << this->courseNo << endl;
+    cout << "\tCourse Title: " << this->courseTitle << endl;
+    cout << "\tCredit hour: " << this->creditHour
+}

@@ -86,6 +86,69 @@ void registerStudentToCourse()
     dispMenu();
 }
 
+void gradeStudentD()
+{
+    string id, courseNo;
+    float grade;
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--Grading Student--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+
+    cout << "Enter Id: ";
+    cin >> id;
+
+    student *st = findStudentById(id);
+    if (st == NULL)
+    {
+        cout << "Student with id: " << id << " is not found" << endl;
+        waitForUser();
+        dispMenu();
+    }
+
+    cout << "Enter courseNo: ";
+    cin >> courseNo;
+
+    student::studentCourse *course = st->findStudentCourse(courseNo);
+    if (course == NULL)
+    {
+        cout << "Student is not registred to course with courseNo: " << courseNo << endl;
+        waitForUser();
+        dispMenu();
+    }
+
+    cout << "Enter grade: ";
+    while (!(cin >> grade) || !(grade <= 4.0 && grade >= 0))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "\t Please make sure you entered a grade between 0.0 - 4.0" << endl;
+        cout << "Enter grade: ";
+    }
+
+    st->gradeStudent(courseNo, grade);
+    cout << "Student graded successfully" << endl;
+    waitForUser();
+    dispMenu();
+}
+
+void searchStudentD()
+{
+    string id;
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--Grading Student--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    cout << "Enter id: ";
+    cin >> id;
+
+    student *st = findStudentById(id);
+    cout << "Student found succesfully" << endl;
+    st->displayStudentInfo();
+}
+
 void dispMenu()
 {
     // choice input of user

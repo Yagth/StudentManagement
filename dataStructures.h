@@ -20,6 +20,8 @@ struct course
     course *next;
     course *prev;
 
+    void displayCourseInfo();
+
 } *CHead = NULL;
 
 struct student
