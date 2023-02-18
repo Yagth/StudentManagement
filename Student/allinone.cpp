@@ -160,12 +160,20 @@ void displayAllStudents()
 course *getCourse()
 {
     course *newcourse = new course();
-    cout << "Enter Course number ";
+    cout << "Enter Course No ";
     cin >> newcourse->courseNo;
     cout << "Enter Course Credit Hour ";
-    cin >> newcourse->creditHour;
+    while (!(cin >> newcourse->creditHour))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "\t!!Please Make sure the credit hour is integer!!" << endl;
+        cout << "Enter Course Credit Hour ";
+    }
+
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Enter Course Title ";
-    cin >> newcourse->courseTitle;
+    getline(cin, newcourse->courseTitle);
 
     newcourse->next = NULL;
 
@@ -187,6 +195,7 @@ void recordCourse()
             temp = temp->next;
         }
         temp->next = newCourse;
+        cout << "Course Successfully added to list" << endl;
     }
 }
 
