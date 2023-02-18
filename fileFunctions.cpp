@@ -136,7 +136,7 @@ bool loadStudents(const char *filename)
                 getline(courseSS, gradeStr, ':');
                 string courseNo = courseNoStr;
                 float grade = stof(gradeStr);
-
+                cout << "CourseNo: " << courseNo;
                 // add course to student's course linked list
                 student::studentCourse *courseNode = new student::studentCourse();
                 courseNode->courseNo = courseNo;
@@ -217,6 +217,6 @@ bool loadCourses(const char *filename)
 bool loadFiles()
 {
     bool loaded;
-    loaded = loadStudents("files/Students.txt") && loadCourses("files/Courses.txt");
+    loaded = loadCourses("files/Courses.txt") && loadStudents("files/Students.txt");
     return loaded;
 }
