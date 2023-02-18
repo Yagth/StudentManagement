@@ -13,7 +13,6 @@ struct course
 
 struct student
 {
-private:
     string id;
     string firstName;
     string lastName;
@@ -26,7 +25,6 @@ private:
         studentCourse *next;
     } *head;
 
-public:
     student *next;
     student *prev;
 
