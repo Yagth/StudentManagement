@@ -19,65 +19,6 @@ course *findCourseByNo(string courseNo)
     return NULL;
 }
 
-void displayAllStudents()
-{
-    student *current = SHead;
-
-    if (SHead == NULL)
-    {
-        cout << "List is empty." << endl;
-        return;
-    }
-    while (current != NULL)
-    {
-        cout << "ID: " << current->id << endl;
-        cout << "First name: " << current->firstName << endl;
-        cout << "Last name: " << current->lastName << endl;
-        cout << "Age: " << current->age << endl;
-        cout << "Sex: " << current->sex << endl;
-
-        current = current->next;
-    }
-}
-
-void deleteStudentById(string id)
-{
-    student *current = findStudentById(id);
-
-    // If the student is not found, return
-    if (current == NULL)
-    {
-        cout << "\tStudent not found." << endl;
-        return;
-    }
-
-    // If the student to be deleted is the head student, update the head pointer
-    if (SHead == current)
-    {
-        SHead = current->next;
-        if (SHead != NULL)
-        {
-            SHead->prev = NULL;
-        }
-    }
-    else
-    {
-        // Update the next pointer of the previous student
-        current->prev->next = current->next;
-
-        // Update the previous pointer of the next student
-        if (current->next != NULL)
-        {
-            current->next->prev = current->prev;
-        }
-    }
-
-    // Free the memory of the student to be deleted
-    delete current;
-
-    cout << "Student deleted sucessfully" << endl;
-}
-
 void deleteCourseByCourseNumber(string courseNo)
 {
     course *current = findCourseByNo(courseNo);

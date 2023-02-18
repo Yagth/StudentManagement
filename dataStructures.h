@@ -3,6 +3,13 @@
 
 #include <bits/stdc++.h>
 
+#ifdef _WIN32
+#include <conio.h> // for windows users
+#else
+#include <unistd.h>  // for Linux users
+#include <termios.h> // for Linux users
+#endif
+
 using namespace std;
 
 struct course
@@ -58,5 +65,7 @@ course *getCourse();
 void clearScreen();
 void waitForUser();
 void registerStudentToCourse();
+void registerStudentD();
+void dispMenu();
 
 #endif
