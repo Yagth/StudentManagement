@@ -224,6 +224,38 @@ void sortD()
     dispMenu();
 }
 
+void deleteStudentD()
+{
+    string id;
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--Delete student--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    cout << "Enter id: ";
+    cin >> id;
+
+    deleteStudentById(id);
+    waitForUser();
+    dispMenu();
+}
+
+void deleteCourseD()
+{
+    string courseNo;
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--Delete Course--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    cout << "Enter courseNo: ";
+    cin >> courseNo;
+
+    deleteCourseByCourseNumber(courseNo);
+    waitForUser();
+    dispMenu();
+}
+
 void dispMenu()
 {
     // choice input of user
