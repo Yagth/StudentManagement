@@ -13,13 +13,12 @@ struct course
 
 struct student
 {
+private:
     string id;
     string firstName;
     string lastName;
     int age;
     string sex;
-    student *next;
-    student *prev;
     struct studentCourse
     {
         string courseNo;
@@ -27,11 +26,15 @@ struct student
         studentCourse *next;
     } *head;
 
+public:
+    student *next;
+    student *prev;
+
     studentCourse *getStudentCourse(string courseNo)
     {
         studentCourse *temp = new studentCourse();
         temp->courseNo = courseNo;
-        temp->grade = 0.0;
+        temp->grade = -1.0;
         temp->next = NULL;
 
         return temp;
@@ -72,6 +75,7 @@ struct student
                 {
                     return current;
                 }
+                current = current->next;
             }
         }
         return NULL;
@@ -81,6 +85,79 @@ struct student
     {
         studentCourse *courseInfo = findStudentCourse(courseNo);
         courseInfo->grade = grade;
+    }
+
+    student *findStudentById(string id)
+    {
+        student *current = SHead;
+
+        if (current == NULL)
+        {
+            cout << "List is empty" << endl;
+        }
+        else
+        {
+            while (current != NULL)
+            {
+                if (current->id == id)
+                    return current;
+                current = current->next;
+            }
+            cout << "Student not found" << endl;
+            return NULL;
+        }
+    }
+
+    void displayStudentInfo(student *st)
+    {
+        if (st != NULL)
+        {
+            cout << "ID: " << st->id << endl;
+            cout << "First name: " << st->firstName << endl;
+            cout << "Last name: " << st->lastName << endl;
+            cout << "Age: " << st->age << endl;
+            cout << "Sex: " << st->sex << endl;
+
+            cout << "Registered courses" << endl;
+
+            studentCourse *temp = st->head;
+
+            if (temp == NULL)
+            {
+                cout << "No registered courses" << endl;
+                return;
+            }
+
+            while (temp != NULL)
+                cout << "\tCourseNo: " << temp->courseNo;
+            cout << "\tGrade: ";
+
+            if (temp->grade == -1.0)
+                cout << "Not determined" << endl;
+            else
+                cout << temp->grade << endl;
+        }
+    }
+
+    void displayAllStudents()
+    {
+        student *current = SHead;
+
+        if (SHead == NULL)
+        {
+            cout << "List is empty." << endl;
+            return;
+        }
+        while (current != NULL)
+        {
+            cout << "ID: " << current->id << endl;
+            cout << "First name: " << current->firstName << endl;
+            cout << "Last name: " << current->lastName << endl;
+            cout << "Age: " << current->age << endl;
+            cout << "Sex: " << current->sex << endl;
+
+            current = current->next;
+        }
     }
 } *SHead = NULL;
 
@@ -175,27 +252,6 @@ void sortStudentByName()
             }
             current = current->next;
         }
-    }
-}
-
-void display()
-{
-    student *current = SHead;
-
-    if (SHead == NULL)
-    {
-        cout << "List is empty." << endl;
-        return;
-    }
-    while (current != NULL)
-    {
-        cout << "ID: " << current->id << endl;
-        cout << "First name: " << current->firstName << endl;
-        cout << "Last name: " << current->lastName << endl;
-        cout << "Age: " << current->age << endl;
-        cout << "Sex: " << current->sex << endl;
-
-        current = current->next;
     }
 }
 
