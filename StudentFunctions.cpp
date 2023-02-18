@@ -237,12 +237,7 @@ void displayAllStudents()
     }
     while (current != NULL)
     {
-        cout << "ID: " << current->id << endl;
-        cout << "First name: " << current->firstName << endl;
-        cout << "Last name: " << current->lastName << endl;
-        cout << "Age: " << current->age << endl;
-        cout << "Sex: " << current->sex << endl;
-
+        current->displayStudentInfo();
         current = current->next;
     }
 }

@@ -66,22 +66,22 @@ void registerStudentToCourse()
     if (st == NULL)
     {
         cout << "Student with id: " << id << " is not registred" << endl;
-        waitForUser();
-        dispMenu();
     }
-    cout << "Enter course number: ";
-    cin >> courseNo;
-
-    course *course = findCourseByNo(courseNo);
-    if (course == NULL)
+    else
     {
-        cout << "Course with courseNo: " << courseNo << " is not found" << endl;
-        waitForUser();
-        dispMenu();
+        cout << "Enter course number: ";
+        cin >> courseNo;
+        course *course = findCourseByNo(courseNo);
+        if (course == NULL)
+        {
+            cout << "Course with courseNo: " << courseNo << " is not found" << endl;
+        }
+        else
+        {
+            st->addCourse(courseNo);
+            cout << "Registered student to course succefully!!" << endl;
+        }
     }
-
-    st->addCourse(courseNo);
-    cout << "Registered student to course succefully!!" << endl;
     waitForUser();
     dispMenu();
 }
@@ -103,32 +103,32 @@ void gradeStudentD()
     if (st == NULL)
     {
         cout << "Student with id: " << id << " is not found" << endl;
-        waitForUser();
-        dispMenu();
     }
-
-    cout << "Enter courseNo: ";
-    cin >> courseNo;
-
-    student::studentCourse *course = st->findStudentCourse(courseNo);
-    if (course == NULL)
+    else
     {
-        cout << "Student is not registred to course with courseNo: " << courseNo << endl;
-        waitForUser();
-        dispMenu();
-    }
+        cout << "Enter courseNo: ";
+        cin >> courseNo;
 
-    cout << "Enter grade: ";
-    while (!(cin >> grade) || !(grade <= 4.0 && grade >= 0))
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "\t Please make sure you entered a grade between 0.0 - 4.0" << endl;
-        cout << "Enter grade: ";
-    }
+        student::studentCourse *course = st->findStudentCourse(courseNo);
+        if (course == NULL)
+        {
+            cout << "Student is not registred to course with courseNo: " << courseNo << endl;
+        }
+        else
+        {
+            cout << "Enter grade: ";
+            while (!(cin >> grade) || !(grade <= 4.0 && grade >= 0))
+            {
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "\t Please make sure you entered a grade between 0.0 - 4.0" << endl;
+                cout << "Enter grade: ";
+            }
 
-    st->gradeStudent(courseNo, grade);
-    cout << "Student graded successfully" << endl;
+            st->gradeStudent(courseNo, grade);
+            cout << "Student graded successfully" << endl;
+        }
+    }
     waitForUser();
     dispMenu();
 }
@@ -138,7 +138,7 @@ void searchStudentD()
     string id;
     clearScreen();
     cout << "===================================================================" << endl;
-    cout << "\t\t\t--Grading Student--" << endl;
+    cout << "\t\t\t--Search Student--" << endl;
     cout << "===================================================================" << endl
          << endl;
     cout << "Enter id: ";
@@ -148,11 +148,39 @@ void searchStudentD()
     if (st == NULL)
     {
         cout << "Student with id: " << id << " couldn't be found" << endl;
-        waitForUser();
-        dispMenu();
     }
-    cout << "Student found" << endl;
-    st->displayStudentInfo();
+    else
+    {
+        cout << "Student found!!" << endl
+             << endl;
+        st->displayStudentInfo();
+    }
+    waitForUser();
+    dispMenu();
+}
+
+void searchCourseD()
+{
+    string courseNo;
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--Search  Course--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    cout << "Enter courseNo: ";
+    cin >> courseNo;
+
+    course *course = findCourseByNo(courseNo);
+    if (course == NULL)
+    {
+        cout << "Course with courseNo: " << courseNo << " couldn't be found" << endl;
+    }
+    else
+    {
+        cout << "Course found!!" << endl
+             << endl;
+        course->displayCourseInfo();
+    }
     waitForUser();
     dispMenu();
 }
