@@ -332,19 +332,19 @@ void registerStudent()
 
 int main()
 {
-    registerStudent();
-    registerStudent();
+    // registerStudent();
+    // registerStudent();
 
-    recordCourse();
-    recordCourse();
+    // recordCourse();
+    // recordCourse();
 
-    student *temp = SHead;
-    course *tempCourse = CHead;
-    temp->addCourse(tempCourse->courseNo);
-    temp->addCourse(tempCourse->next->courseNo);
+    // student *temp = SHead;
+    // course *tempCourse = CHead;
+    // temp->addCourse(tempCourse->courseNo);
+    // temp->addCourse(tempCourse->next->courseNo);
 
-    temp->displayStudentInfo();
-    temp->next->displayStudentInfo();
-    cout << endl;
-    display(CHead);
+    // temp->displayStudentInfo();
+    // temp->next->displayStudentInfo();
+    // cout << endl;
+    // display(CHead);
 }
