@@ -2,8 +2,8 @@
 
 int main()
 {
-    loadLinkedList("students")
-        dispMenu();
+    loadLinkedList("students");
+    dispMenu();
     // registerStudent();
     // registerStudent();
     // registerStudent();
