@@ -1,5 +1,5 @@
 #include <iostream>
-#include "C:\p1\StudentManagement\Student\DataStrucutres.h";
+#include "C:\p1\StudentManagement\Student\dataStructures.h";
 using namespace std;
 
 void delete_student_by_id(student** head_ref, string id) {
