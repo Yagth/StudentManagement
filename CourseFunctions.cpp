@@ -50,6 +50,13 @@ void deleteCourseByCourseNumber(string courseNo)
             current->next->prev = current->prev;
         }
     }
+    student *curr = SHead;
+    // The following code will delete the course from every student who is registered.
+    while (curr != NULL)
+    {
+        curr->deleteStudentCourse(current->courseNo);
+        curr = curr->next;
+    }
 
     // Free the memory of the course to be deleted
     delete current;

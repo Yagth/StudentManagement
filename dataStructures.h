@@ -48,6 +48,7 @@ struct student
     studentCourse *getStudentCourse(string courseNo);
     void addCourse(string courseNo);
     studentCourse *findStudentCourse(string courseNo);
+    void deleteStudentCourse(string courseNo);
     void gradeStudent(string courseNo, float grade);
     void displayStudentInfo();
 

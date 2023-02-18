@@ -52,6 +52,41 @@ student::studentCourse *student::findStudentCourse(string courseNo)
     return NULL;
 }
 
+void student::deleteStudentCourse(string courseNo)
+{
+    student::studentCourse *sCourse = student::findStudentCourse(courseNo);
+    // if the list is empty, return
+    if (this->head == NULL)
+    {
+        return;
+    }
+
+    // if the key is at the head of the list
+    if (this->head->courseNo == courseNo)
+    {
+        student::studentCourse *temp = this->head;
+        this->head = this->head->next;
+        delete temp;
+        return;
+    }
+
+    // search for the key while keeping track of the previous node
+    student::studentCourse *prev = this->head;
+    student::studentCourse *curr = this->head->next;
+    while (curr != NULL && curr->courseNo != courseNo)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+
+    // if the key is found, delete the node
+    if (curr != NULL)
+    {
+        prev->next = curr->next;
+        delete curr;
+    }
+}
+
 void student::gradeStudent(string courseNo, float grade)
 {
     studentCourse *courseInfo = findStudentCourse(courseNo);
