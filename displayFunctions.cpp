@@ -205,6 +205,23 @@ void displayAllCoursesD()
     cout << "===================================================================" << endl
          << endl;
     displayAllCourses();
+    waitForUser();
+    dispMenu();
+}
+
+void sortD()
+{
+    cout << "Sorting..." << endl;
+    sortStudentByName();
+    cout << "Sort finished!!" << endl;
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--Sorted list of students--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    displayAllStudents();
+    waitForUser();
+    dispMenu();
 }
 
 void dispMenu()
@@ -228,7 +245,7 @@ void dispMenu()
         cout << "6. Search Course" << endl;
         cout << "7. Display All Students" << endl;
         cout << "8. Display All Courses" << endl;
-        cout << "9. Sort Students" << endl;
+        cout << "9. Sort Students by FirstName" << endl;
         cout << "10. Delete Student" << endl;
         cout << "11. Delete Course" << endl;
         cout << "12. Save Student information to file" << endl;
