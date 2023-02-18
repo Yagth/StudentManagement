@@ -76,7 +76,8 @@ void student::displayStudentInfo()
     }
     while (temp != NULL)
     {
-        cout << "\tCourseNo: " << temp->courseNo;
+        course *stCourse = findCourseByNo(temp->courseNo);
+        stCourse->displayCourseInfo();
         cout << "\tGrade: ";
 
         if (temp->grade == -1.0)
