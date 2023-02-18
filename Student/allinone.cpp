@@ -63,7 +63,7 @@ struct student
 
         if (current == NULL)
         {
-            cout << "No registred Course" << endl;
+            return NULL;
         }
         else
         {
@@ -121,7 +121,7 @@ student *findStudentById(string id)
 
     if (current == NULL)
     {
-        cout << "List is empty" << endl;
+        return NULL;
     }
     else
     {
@@ -275,6 +275,15 @@ void registerStudent()
     cout << "Enter ID : ";
     cin.ignore(); // To Clear the buffer memory before the next input
     cin >> st->id;
+
+    student *temp = findStudentById(st->id);
+
+    if (temp != NULL)
+    {
+        cout << "Student with Id: " << st->id << " is already registered." << endl;
+        return;
+    }
+
     cout << "Enter First name : ";
     cin.ignore();
     cin >> st->firstName;
@@ -282,9 +291,14 @@ void registerStudent()
     cin.ignore();
     cin >> st->lastName;
     cout << "Enter Age : ";
-    cin.ignore();
-    cin >> st->age;
-    cout << "Enter Sex : ";
+    while (!(cin >> st->age))
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "\t!!Invalid input. Enter positive Integer" << endl;
+        cout << "Enter Age : ";
+    }
+    cout << "Enter Sex(Male/Female) : ";
     cin.ignore();
     cin >> st->sex;
 
