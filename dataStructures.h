@@ -55,4 +55,8 @@ void displayAllCourses();
 void recordCourse();
 course *getCourse();
 
+void clearScreen();
+void waitForUser();
+void registerStudentToCourse();
+
 #endif
