@@ -8,6 +8,7 @@ struct course
     string courseTitle;
     int creditHour;
     course *next;
+    course *prev;
 
 } *CHead = NULL;
 
@@ -137,6 +138,26 @@ student *findStudentById(string id)
     return NULL;
 }
 
+course *findCourseByNo(string courseNo)
+{
+    course *current = CHead;
+
+    if (current == NULL)
+    {
+        return NULL;
+    }
+    else
+    {
+        while (current != NULL)
+        {
+            if (current->courseNo == courseNo)
+                return current;
+            current = current->next;
+        }
+    }
+    return NULL;
+}
+
 void displayAllStudents()
 {
     student *current = SHead;
@@ -158,11 +179,95 @@ void displayAllStudents()
     }
 }
 
+void deleteStudentById(string id)
+{
+    student *current = findStudentById(id);
+
+    // If the student is not found, return
+    if (current == NULL)
+    {
+        cout << "\tStudent not found." << endl;
+        return;
+    }
+
+    // If the student to be deleted is the head student, update the head pointer
+    if (SHead == current)
+    {
+        SHead = current->next;
+        if (SHead != NULL)
+        {
+            SHead->prev = NULL;
+        }
+    }
+    else
+    {
+        // Update the next pointer of the previous student
+        current->prev->next = current->next;
+
+        // Update the previous pointer of the next student
+        if (current->next != NULL)
+        {
+            current->next->prev = current->prev;
+        }
+    }
+
+    // Free the memory of the student to be deleted
+    delete current;
+
+    cout << "Student deleted sucessfully" << endl;
+}
+
+void deleteCourseByCourseNumber(string courseNo)
+{
+    course *current = findCourseByNo(courseNo);
+
+    // If the Course Numbert is not found, return
+    if (current == NULL)
+    {
+        cout << "\tCourse not found!" << endl;
+        return;
+    }
+
+    // If the Course Number to be deleted is in head , update the head pointer
+    if (CHead == current)
+    {
+        CHead = current->next;
+        if (CHead != NULL)
+        {
+            CHead->prev = NULL;
+        }
+    }
+    else
+    {
+        // Update the next pointer of the previous Course
+        current->prev->next = current->next;
+
+        // Update the previous pointer of the next course
+        if (current->next != NULL)
+        {
+            current->next->prev = current->prev;
+        }
+    }
+
+    // Free the memory of the course to be deleted
+    delete current;
+    cout << "Course deleted sucessfully" << endl;
+}
+
 course *getCourse()
 {
     course *newcourse = new course();
     cout << "Enter Course No ";
     cin >> newcourse->courseNo;
+
+    course *temp = findCourseByNo(newcourse->courseNo);
+
+    if (temp != NULL)
+    {
+        cout << "Course with number: " << newcourse->courseNo << " already exists." << endl;
+        return NULL;
+    }
+
     cout << "Enter Course Credit Hour ";
     while (!(cin >> newcourse->creditHour))
     {
@@ -177,6 +282,7 @@ course *getCourse()
     getline(cin, newcourse->courseTitle);
 
     newcourse->next = NULL;
+    newcourse->prev = NULL;
 
     return newcourse;
 }
@@ -195,6 +301,7 @@ void recordCourse()
             temp = temp->next;
         }
         temp->next = newCourse;
+        newCourse->prev = temp;
     }
     cout << "Course Successfully added to list" << endl;
 }
@@ -333,7 +440,14 @@ void registerStudent()
 int main()
 {
     // registerStudent();
-    // registerStudent();
+    registerStudent();
+    registerStudent();
+    registerStudent();
+
+    student *temp = SHead;
+
+    deleteStudentById(temp->id);
+    displayAllStudents();
 
     // recordCourse();
     // recordCourse();

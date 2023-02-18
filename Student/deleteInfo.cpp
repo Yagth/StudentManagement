@@ -2,32 +2,39 @@
 #include "C:\p1\StudentManagement\Student\dataStructures.h";
 using namespace std;
 
-void delete_student_by_id(student** head_ref, string id) {
-    student* current = *head_ref;
+void deleteStudentById(student *SHead, string id)
+{
+    student *current = SHead;
 
     // Traverse the list to find the student to be deleted
-    while (current != nullptr && current->id != id) {
+    while (current != NULL && current->id != id)
+    {
         current = current->next;
     }
 
     // If the student is not found, return
-    if (current == nullptr) {
+    if (current == NULL)
+    {
         return;
     }
 
     // If the student to be deleted is the head student, update the head pointer
-    if (*head_ref == current) {
-        *head_ref = current->next;
-        if (*head_ref != nullptr) {
-            (*head_ref)->prev = nullptr;
+    if (SHead == current)
+    {
+        SHead = current->next;
+        if (SHead != NULL)
+        {
+            SHead->prev = NULL;
         }
     }
-    else {
+    else
+    {
         // Update the next pointer of the previous student
         current->prev->next = current->next;
 
         // Update the previous pointer of the next student
-        if (current->next != nullptr) {
+        if (current->next != NULL)
+        {
             current->next->prev = current->prev;
         }
     }
@@ -36,32 +43,39 @@ void delete_student_by_id(student** head_ref, string id) {
     delete current;
 }
 
-void deleteCourseByCourseNumber(course** head_ref, int courseNo) {
-    course* current = *head_ref;
+void deleteCourseByCourseNumber(course *CHead, int courseNo)
+{
+    course *current = CHead;
 
     // Traverse the list to find the Course Number to be deleted
-    while (current != nullptr && current->courseNo != courseNo) {
+    while (current != NULL && current->courseNo != courseNo)
+    {
         current = current->next;
     }
 
     // If the Course Numbert is not found, return
-    if (current == nullptr) {
+    if (current == NULL)
+    {
         return;
     }
 
     // If the Course Number to be deleted is in head , update the head pointer
-    if (*head_ref == current) {
-        *head_ref = current->next;
-        if (*head_ref != nullptr) {
-            (*head_ref)->prev = nullptr;
+    if (CHead == current)
+    {
+        CHead = current->next;
+        if (CHead != NULL)
+        {
+            CHead->prev = NULL;
         }
     }
-    else {
+    else
+    {
         // Update the next pointer of the previous Course
         current->prev->next = current->next;
 
         // Update the previous pointer of the next course
-        if (current->next != nullptr) {
+        if (current->next != NULL)
+        {
             current->next->prev = current->prev;
         }
     }
@@ -69,5 +83,3 @@ void deleteCourseByCourseNumber(course** head_ref, int courseNo) {
     // Free the memory of the course to be deleted
     delete current;
 }
-
-
