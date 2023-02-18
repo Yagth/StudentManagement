@@ -343,15 +343,15 @@ void dispMenu()
 
 bool saveLinkedList(const char *filename)
 {
-    ofstream fout(filename, ios::binary);
+    ofstream fout(filename);
 
     if (!fout)
     {
-        cerr << "Error: failed to open file " << filename << " for writing." << std::endl;
+        cerr << "Error: failed to open file " << filename << " for writing." << endl;
         return false;
     }
 
-    // write the number of nodes in the list as first 4 bytes
+    // write the number of nodes in the list as first line
     int count = 0;
     student *current = SHead;
     while (current != NULL)
@@ -359,50 +359,28 @@ bool saveLinkedList(const char *filename)
         count++;
         current = current->next;
     }
-    fout.write(reinterpret_cast<const char *>(&count), sizeof(count));
+    fout << count << endl;
 
-    // write each node's data as 4 bytes and address of next and previous nodes as 8 bytes
+    // write each node's data and linked list attribute
     current = SHead;
     while (current != NULL)
     {
-        fout.write(reinterpret_cast<const char *>(&(current->id)), sizeof(current->id));
-        fout.write(reinterpret_cast<const char *>(&(current->firstName)), sizeof(current->firstName));
-        fout.write(reinterpret_cast<const char *>(&(current->lastName)), sizeof(current->lastName));
-        fout.write(reinterpret_cast<const char *>(&(current->age)), sizeof(current->age));
-        fout.write(reinterpret_cast<const char *>(&(current->sex)), sizeof(current->sex));
-        fout.write(reinterpret_cast<const char *>(&(current->next)), sizeof(current->next));
-        fout.write(reinterpret_cast<const char *>(&(current->prev)), sizeof(current->prev));
+        // write student data
+        fout << current->id << "," << current->firstName << "," << current->lastName << ","
+             << current->age << "," << current->sex;
 
-        fout.write(reinterpret_cast<const char *>(&(current->getStudentCourse)), sizeof(current->getStudentCourse));
-        fout.write(reinterpret_cast<const char *>(&(current->findStudentCourse)), sizeof(current->findStudentCourse));
-        fout.write(reinterpret_cast<const char *>(&(current->gradeStudent)), sizeof(current->gradeStudent));
-        fout.write(reinterpret_cast<const char *>(&(current->displayStudentInfo)), sizeof(current->displayStudentInfo));
-
-        if (current->head != NULL) // check if student has courses
-        {
-            int courseCount = 0;
+        // write linked list attribute
+        if (current->head != NULL)
+        { // check if student has courses
             student::studentCourse *courseCurrent = current->head;
             while (courseCurrent != NULL)
             {
-                courseCount++;
-                courseCurrent = courseCurrent->next;
-            }
-
-            fout.write(reinterpret_cast<const char *>(&courseCount), sizeof(courseCount)); // write number of courses
-
-            courseCurrent = current->head;
-            while (courseCurrent != NULL)
-            {
-                fout.write(reinterpret_cast<const char *>(&(courseCurrent->courseNo)), sizeof(courseCurrent->courseNo));
-                fout.write(reinterpret_cast<const char *>(&(courseCurrent->grade)), sizeof(courseCurrent->grade));
+                fout << "," << courseCurrent->courseNo << ":" << courseCurrent->grade;
                 courseCurrent = courseCurrent->next;
             }
         }
-        else
-        {
-            int courseCount = 0;
-            fout.write(reinterpret_cast<const char *>(&courseCount), sizeof(courseCount)); // write 0 if student has no courses
-        }
+
+        fout << endl;
 
         current = current->next;
     }
@@ -413,7 +391,7 @@ bool saveLinkedList(const char *filename)
 
 bool loadLinkedList(const char *filename)
 {
-    ifstream fin(filename, ios::binary);
+    ifstream fin(filename);
 
     if (!fin)
     {
@@ -421,68 +399,64 @@ bool loadLinkedList(const char *filename)
         return false;
     }
 
-    // read the number of nodes in the list as first 4 bytes
-    int count = 0;
-    fin.read(reinterpret_cast<char *>(&count), sizeof(count));
+    // read the number of nodes in the list from the first line
+    int count;
+    fin >> count;
 
-    // read each node's data as 4 bytes and address of next and previous nodes as 8 bytes
-    student *current = NULL;
-    student *prev = NULL;
+    // read each node's data and linked list attribute
     for (int i = 0; i < count; i++)
     {
-        current = new student;
-        current->head = NULL;
+        student *current = new student();
+        string line;
+        getline(fin, line);
 
-        // read student data
-        fin.read(reinterpret_cast<char *>(&(current->id)), sizeof(current->id));
-        fin.read(reinterpret_cast<char *>(&(current->firstName)), sizeof(current->firstName));
-        fin.read(reinterpret_cast<char *>(&(current->lastName)), sizeof(current->lastName));
-        fin.read(reinterpret_cast<char *>(&(current->age)), sizeof(current->age));
-        fin.read(reinterpret_cast<char *>(&(current->sex)), sizeof(current->sex));
-
+        // tokenize the line by ","
+        stringstream ss(line);
+        string token;
+        getline(ss, token, ',');
+        current->id = token;
+        getline(ss, current->firstName, ',');
+        getline(ss, current->lastName, ',');
+        getline(ss, token, ',');
+        current->age = stoi(token);
+        getline(ss, current->sex, ',');
         // read linked list attribute
-        int courseCount;
-        fin.read(reinterpret_cast<char *>(&courseCount), sizeof(courseCount));
-
-        for (int j = 0; j < courseCount; j++)
+        getline(ss, token, ',');
+        while (!token.empty())
         {
-            student::studentCourse *newCourse = new student::studentCourse;
-            fin.read(reinterpret_cast<char *>(&(newCourse->courseNo)), sizeof(newCourse->courseNo));
-            fin.read(reinterpret_cast<char *>(&(newCourse->grade)), sizeof(newCourse->grade));
-            newCourse->next = NULL;
+            if (token.find(":") != string::npos)
+            { // check if token is a course string
+                // tokenize the course string by ":"
+                stringstream courseSS(token);
+                string courseNoStr, gradeStr;
+                getline(courseSS, courseNoStr, ':');
+                getline(courseSS, gradeStr, ':');
+                int courseNo = stoi(courseNoStr);
+                int grade = stoi(gradeStr);
 
-            // add new course to student's course list
-            if (current->head == NULL)
-            {
-                current->head = newCourse;
+                // add course to student's course linked list
+                student::studentCourse *courseNode = new student::studentCourse();
+                courseNode->courseNo = courseNo;
+                courseNode->grade = grade;
+                current->addCourse(courseNode->courseNo);
             }
-            else
-            {
-                student::studentCourse *courseCurrent = current->head;
-                while (courseCurrent->next != NULL)
-                {
-                    courseCurrent = courseCurrent->next;
-                }
-                courseCurrent->next = newCourse;
-            }
+
+            getline(ss, token, ',');
         }
 
-        fin.read(reinterpret_cast<char *>(&(current->next)), sizeof(current->next));
-        fin.read(reinterpret_cast<char *>(&(current->prev)), sizeof(current->prev));
-
-        // link current node to the previous node
-        if (prev != NULL)
+        if (SHead == NULL)
         {
-            prev->next = current;
-            current->prev = prev;
+            SHead = current;
         }
         else
         {
-            SHead = current;
-            current->prev = NULL;
+            student *curr = SHead;
+            while (curr->next != NULL)
+            {
+                curr = curr->next;
+            }
+            curr->next = current;
         }
-
-        prev = current;
     }
 
     fin.close();

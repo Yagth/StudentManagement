@@ -98,6 +98,10 @@ void recordCourse()
     }
     else
     {
+        if (newCourse == NULL)
+        {
+            return;
+        }
         course *temp = CHead;
         while (temp->next != NULL)
         {
