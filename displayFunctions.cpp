@@ -294,35 +294,43 @@ void dispMenu()
         switch (choice)
         {
         case 0:
+            cout << "Exiting..." << endl;
             return;
         case 1:
+            registerStudentD();
             break;
         case 2:
-            recordCourse();
+            registerCourseD();
             break;
         case 3:
-            // maintainGrades();
+            registerStudentToCourse();
             break;
         case 4:
-            // searchStudents();
+            gradeStudentD();
             break;
         case 5:
-            // searchCourses();
+            searchStudentD();
             break;
         case 6:
-            // sortStudents();
+            searchCourseD();
             break;
         case 7:
-            displayAllStudents();
+            displayAllStudentsD();
             break;
         case 8:
-            displayAllCourses();
+            displayAllCoursesD();
             break;
         case 9:
-            // deleteCourses();
+            sortD();
             break;
         case 10:
-            // writeToFile();
+            deleteStudentD();
+            break;
+        case 11:
+            deleteCourseD();
+            break;
+        case 12:
+            // deleteStudentD();
             break;
         default:
             cout << "invalid input, please try again!" << endl;

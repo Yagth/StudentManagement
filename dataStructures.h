@@ -66,8 +66,17 @@ course *getCourse();
 
 void clearScreen();
 void waitForUser();
-void registerStudentToCourse();
 void registerStudentD();
+void registerCourseD();
+void registerStudentToCourse();
+void gradeStudentD();
+void searchStudentD();
+void searchCourseD();
+void displayAllStudentsD();
+void displayAllCoursesD();
+void sortD();
+void deleteStudentD();
+void deleteCourseD();
 void dispMenu();
 
 #endif
