@@ -16,6 +16,7 @@ struct student {
     int age;
     string sex;
     student* next;
+    student* prev;
 }* SHead=NULL;
 
 course* getCourse(){
@@ -27,7 +28,6 @@ course* getCourse(){
     cout << "Enter Course Credit Hour ";
     cin >> newcourse->creditHour;
     newcourse->next = NULL;
-    newcourse->prev = NULL;
     return newcourse;
 }
 void insertCourse(){
@@ -42,7 +42,6 @@ void insertCourse(){
         temp = temp->next;
        }
        temp->next = newCourse;
-       newCourse->prev = temp;
     }
 }
 
@@ -59,20 +58,39 @@ void display(course* n){
 void sortStudentByName(){
 
     if (SHead == NULL) {
+        cout<<"List is empty!"<<endl;
         return;
     }else {
-        student* current = SHead, *prev = NULL, *next = NULL;
-        while(current != NULL){
-            if(current->firstName > current->next->firstName){
-                if(current == SHead){
-                    prev = current->
+        student* current = SHead, *index = NULL, * temp;
+            while(current != NULL){
+                index = current->next;
+                while(index != NULL){
+                    if(current->firstName > index->firstName){
+                        temp = current->prev;
+                        if(temp != NULL){
+                            temp->next = index; 
+                            index->prev = temp; 
+                        } else{
+                            index->prev = NULL;
+                        }
+
+                        temp = index->next;
+
+                        if(temp != NULL){
+                            temp->prev = current;
+                            current->next = temp;
+                        } else{
+                            current->next = NULL;
+                        }
+                        
+                        index->next = current;
+                        current->prev = index;
+                    }
+                    index = index->next;
                 }
+                current = current->next;
             }
-            prev = current;
-            current = current->next;
-            next = current->next;
         }
-    }
 }
 
 void display() {
@@ -95,7 +113,6 @@ void display() {
 
 void registerStudent(){
         student * curr = SHead;
-        cout << "registerStudent";
 
         //Check if List is not empty
         while(SHead != NULL && curr->next != NULL){
@@ -124,7 +141,7 @@ void registerStudent(){
         if(SHead == NULL) SHead = st;
         else{
             curr->next = st;
-            st->prev = curr->prev;
+            st->prev = curr;
         }
 }
 
