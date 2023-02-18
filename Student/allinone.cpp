@@ -302,8 +302,6 @@ int main()
     // registerStudent();
     // registerStudent();
 
-    display();
-
     // recordCourse();
     // recordCourse();
     // display(CHead);
