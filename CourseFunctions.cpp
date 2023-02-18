@@ -59,7 +59,7 @@ void deleteCourseByCourseNumber(string courseNo)
 course *getCourse()
 {
     course *newcourse = new course();
-    cout << "Enter Course No ";
+    cout << "Enter CourseNo: ";
     cin >> newcourse->courseNo;
 
     course *temp = findCourseByNo(newcourse->courseNo);
@@ -70,17 +70,17 @@ course *getCourse()
         return NULL;
     }
 
-    cout << "Enter Course Credit Hour ";
+    cout << "Enter Course Credit Hour: ";
     while (!(cin >> newcourse->creditHour))
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << "\t!!Please Make sure the credit hour is integer!!" << endl;
-        cout << "Enter Course Credit Hour ";
+        cout << "Enter Course Credit Hour: ";
     }
 
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cout << "Enter Course Title ";
+    cout << "Enter Course Title: ";
     getline(cin, newcourse->courseTitle);
 
     newcourse->next = NULL;
@@ -133,5 +133,5 @@ void course::displayCourseInfo()
          << endl;
     cout << "\tCourseNo: " << this->courseNo << endl;
     cout << "\tCourse Title: " << this->courseTitle << endl;
-    cout << "\tCredit hour: " << this->creditHour
+    cout << "\tCredit hour: " << this->creditHour << endl;
 }

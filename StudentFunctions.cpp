@@ -59,11 +59,11 @@ void student::gradeStudent(string courseNo, float grade)
 
 void student::displayStudentInfo()
 {
-    cout << "ID: " << this->id << endl;
-    cout << "First name: " << this->firstName << endl;
-    cout << "Last name: " << this->lastName << endl;
-    cout << "Age: " << this->age << endl;
-    cout << "Sex: " << this->sex << endl;
+    cout << " ID: " << this->id << endl;
+    cout << " First name: " << this->firstName << endl;
+    cout << " Last name: " << this->lastName << endl;
+    cout << " Age: " << this->age << endl;
+    cout << " Sex: " << this->sex << endl;
 
     cout << "Registered courses" << endl;
 
@@ -238,7 +238,7 @@ void displayAllStudents()
     }
     while (current != NULL)
     {
-        cout << ++count << ".\t";
+        cout << ++count << ". ";
         current->displayStudentInfo();
         current = current->next;
 

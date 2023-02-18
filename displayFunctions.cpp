@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "dataStructures.h"
 #include "CourseFunctions.cpp"
 #include "StudentFunctions.cpp"
@@ -13,18 +14,10 @@ void clearScreen()
 
 void waitForUser()
 {
-    cout << "Press any key to continue...\n";
 #ifdef _WIN32
-    _getch();
+    system("pause");
 #else
-    struct termios old_termios,
-        new_termios;
-    tcgetattr(STDIN_FILENO, &old_termios);
-    new_termios = old_termios;
-    new_termios.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
-    getchar();
-    tcsetattr(STDIN_FILENO, TCSANOW, &old_termios);
+    system("bash -c 'read -n1 -r -p \"Press any key to continue...\" key'");
 #endif
 }
 
@@ -48,6 +41,8 @@ void registerCourseD()
     cout << "===================================================================" << endl
          << endl;
     recordCourse();
+    waitForUser();
+    dispMenu();
 }
 
 void registerStudentToCourse()
