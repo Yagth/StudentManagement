@@ -64,9 +64,10 @@ void student::displayStudentInfo()
     cout << " First name: " << this->firstName << endl;
     cout << " Last name: " << this->lastName << endl;
     cout << " Age: " << this->age << endl;
-    cout << " Sex: " << this->sex << endl;
+    cout << " Sex: " << this->sex << endl
+         << endl;
 
-    cout << "Registered courses" << endl;
+    cout << "   Registered courses" << endl;
 
     studentCourse *temp = this->head;
 
@@ -87,6 +88,7 @@ void student::displayStudentInfo()
                 cout << "\tNot determined" << endl;
             else
                 cout << "\t" << temp->grade << endl;
+            cout << endl;
         }
 
         temp = temp->next;

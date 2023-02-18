@@ -37,6 +37,7 @@ bool saveStudents(const char *filename)
                 fout << "," << courseCurrent->courseNo << ":" << courseCurrent->grade;
                 courseCurrent = courseCurrent->next;
             }
+            fout << ",";
         }
 
         fout << endl;
@@ -112,7 +113,7 @@ bool loadStudents(const char *filename)
     {
         student *current = new student();
         getline(fin, line);
-
+        cout << "Line: " << line << endl;
         // tokenize the line by ","
         stringstream ss(line);
         string token;
@@ -123,10 +124,11 @@ bool loadStudents(const char *filename)
         getline(ss, token, ',');
         current->age = stoi(token);
         getline(ss, current->sex, ',');
+
         // read linked list attribute
-        getline(ss, token, ',');
         while (getline(ss, token, ','))
         {
+            cout << "token: " << token << endl;
             if (token.find(":") != string::npos)
             { // check if token is a course string
                 // tokenize the course string by ":"
