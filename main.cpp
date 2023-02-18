@@ -2,7 +2,7 @@
 
 int main()
 {
-    bool loaded = loadLinkedList("students");
+    bool loaded = loadFiles();
     if (loaded)
         cout << "Loaded" << endl;
     waitForUser();

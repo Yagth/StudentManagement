@@ -322,7 +322,7 @@ void dispMenu()
             deleteCourseD();
             break;
         case 12:
-            saved = saveLinkedList("students");
+            saved = saveFiles();
             if (saved)
                 cout << "Save successfull" << endl;
             else
