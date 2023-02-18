@@ -8,6 +8,9 @@
 #else
 #include <unistd.h>  // for Linux users
 #include <termios.h> // for Linux users
+
+#include <cstdlib>
+#include <fstream>
 #endif
 
 using namespace std;

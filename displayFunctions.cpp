@@ -1,5 +1,5 @@
-#include <cstdlib>
 #include "dataStructures.h"
+#include "fileFunctions.cpp"
 #include "CourseFunctions.cpp"
 #include "StudentFunctions.cpp"
 
@@ -14,7 +14,11 @@ void clearScreen()
 
 void waitForUser()
 {
+#ifdef _WIN32
     system("pause");
+#else
+    system("bash -c 'read -n1 -r -p \"Press any key to continue...\" key'");
+#endif
 }
 
 void registerStudentD()

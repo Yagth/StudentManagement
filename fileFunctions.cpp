@@ -1,8 +1,4 @@
-#include <cstdlib>
-#include <fstream>
 #include "dataStructures.h"
-#include "CourseFunctions.cpp"
-#include "StudentFunctions.cpp"
 
 bool saveStudents(const char *filename)
 {
