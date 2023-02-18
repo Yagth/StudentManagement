@@ -341,7 +341,7 @@ void dispMenu()
     }
 }
 
-bool saveLinkedList(const char *filename)
+bool saveStudents(const char *filename)
 {
     ofstream fout(filename);
 
@@ -389,7 +389,50 @@ bool saveLinkedList(const char *filename)
     return true;
 }
 
-bool loadLinkedList(const char *filename)
+bool saveCourses(const char *filename)
+{
+    ofstream fout(filename);
+
+    if (!fout)
+    {
+        cerr << "Error: failed to open file " << filename << " for writing." << endl;
+        return false;
+    }
+
+    // write the number of nodes in the list as first line
+    int count = 0;
+    course *current = CHead;
+    while (current != NULL)
+    {
+        count++;
+        current = current->next;
+    }
+    fout << count << endl;
+
+    // write each node's data
+    current = CHead;
+    while (current != NULL)
+    {
+        // write course data
+        fout << current->courseNo << "," << current->courseTitle << "," << current->creditHour;
+
+        fout << endl;
+
+        current = current->next;
+    }
+
+    fout.close();
+    return true;
+}
+
+bool saveFiles()
+{
+    bool saved;
+    saved = saveStudents("files/Students.txt") && saveCourses("files/Courses.txt");
+    return saved;
+}
+
+bool loadStudents(const char *filename)
 {
     ifstream fin(filename);
 
@@ -460,4 +503,61 @@ bool loadLinkedList(const char *filename)
 
     fin.close();
     return true;
+}
+
+bool loadCourses(const char *filename)
+{
+    ifstream fin(filename);
+
+    if (!fin)
+    {
+        cerr << "Error: failed to open file " << filename << " for reading." << endl;
+        return false;
+    }
+
+    // read the number of nodes in the list from the first line
+    int count;
+    fin >> count;
+    string line;
+    getline(fin, line);
+
+    // read each node's data and linked list attribute
+    for (int i = 0; i < count; i++)
+    {
+        course *current = new course();
+        getline(fin, line);
+
+        // tokenize the line by ","
+        stringstream ss(line);
+        string token;
+        getline(ss, token, ',');
+        current->courseNo = token;
+        getline(ss, current->courseTitle, ',');
+        getline(ss, token, ',');
+        current->creditHour = stoi(token);
+
+        if (CHead == NULL)
+        {
+            CHead = current;
+        }
+        else
+        {
+            course *curr = CHead;
+            while (curr->next != NULL)
+            {
+                curr = curr->next;
+            }
+            curr->next = current;
+        }
+    }
+
+    fin.close();
+    return true;
+}
+
+bool loadFiles()
+{
+    bool loaded;
+    loaded = loadStudents("files/Students.txt") && loadCourses("files/Courses.txt");
+    return loaded;
 }

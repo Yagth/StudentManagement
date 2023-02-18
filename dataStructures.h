@@ -50,6 +50,7 @@ struct student
 
 } *SHead = NULL;
 
+// Student functions
 student *findStudentById(string id);
 void displayAllStudents();
 void deleteStudentById(string id);
@@ -58,12 +59,14 @@ void sortStudentByName();
 student *getStudent();
 void registerStudent();
 
+// Course functions
 void deleteCourseByCourseNumber(string courseNo);
 course *findCourseByNo(string courseNo);
 void displayAllCourses();
 void recordCourse();
 course *getCourse();
 
+// Display functions
 void clearScreen();
 void waitForUser();
 void registerStudentD();
@@ -78,6 +81,13 @@ void sortD();
 void deleteStudentD();
 void deleteCourseD();
 void dispMenu();
-bool saveLinkedList(const char *filename);
+
+// File functions
+bool saveStudents(const char *filename);
+bool saveCourses(const char *filename);
+bool saveFiles();
+bool loadStudents(const char *filename);
+bool loadCourses(const char *filename);
+bool loadFiles();
 
 #endif
