@@ -163,15 +163,13 @@ course *getCourse()
     cout << "Enter Course number ";
     cin >> newcourse->courseNo;
 
-    // Use cin.ignore() to discard any characters left over in the buffer
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Enter Course Title ";
-    // Use getline() to read a full line of input from the user
     getline(cin, newcourse->courseTitle);
     cin >> newcourse->courseTitle;
     cout << "Enter Course Credit Hour ";
     cin >> newcourse->creditHour;
     newcourse->next = NULL;
+
     return newcourse;
 }
 void recordCourse()
