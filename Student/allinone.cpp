@@ -106,35 +106,32 @@ struct student
         }
     }
 
-    void displayStudentInfo(student *st)
+    void displayStudentInfo()
     {
-        if (st != NULL)
+        cout << "ID: " << this->id << endl;
+        cout << "First name: " << this->firstName << endl;
+        cout << "Last name: " << this->lastName << endl;
+        cout << "Age: " << this->age << endl;
+        cout << "Sex: " << this->sex << endl;
+
+        cout << "Registered courses" << endl;
+
+        studentCourse *temp = this->head;
+
+        if (temp == NULL)
         {
-            cout << "ID: " << st->id << endl;
-            cout << "First name: " << st->firstName << endl;
-            cout << "Last name: " << st->lastName << endl;
-            cout << "Age: " << st->age << endl;
-            cout << "Sex: " << st->sex << endl;
-
-            cout << "Registered courses" << endl;
-
-            studentCourse *temp = st->head;
-
-            if (temp == NULL)
-            {
-                cout << "No registered courses" << endl;
-                return;
-            }
-
-            while (temp != NULL)
-                cout << "\tCourseNo: " << temp->courseNo;
-            cout << "\tGrade: ";
-
-            if (temp->grade == -1.0)
-                cout << "Not determined" << endl;
-            else
-                cout << temp->grade << endl;
+            cout << "No registered courses" << endl;
+            return;
         }
+
+        while (temp != NULL)
+            cout << "\tCourseNo: " << temp->courseNo;
+        cout << "\tGrade: ";
+
+        if (temp->grade == -1.0)
+            cout << "Not determined" << endl;
+        else
+            cout << temp->grade << endl;
     }
 
     void displayAllStudents()
@@ -299,6 +296,7 @@ int main()
     course *tempCourse = CHead;
     temp->addCourse(tempCourse->courseNo);
 
+    temp->displayStudentInfo();
     // registerStudent();
     // registerStudent();
 
