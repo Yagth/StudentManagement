@@ -402,12 +402,13 @@ bool loadLinkedList(const char *filename)
     // read the number of nodes in the list from the first line
     int count;
     fin >> count;
+    string line;
+    getline(fin, line);
 
     // read each node's data and linked list attribute
     for (int i = 0; i < count; i++)
     {
         student *current = new student();
-        string line;
         getline(fin, line);
 
         // tokenize the line by ","
@@ -422,7 +423,7 @@ bool loadLinkedList(const char *filename)
         getline(ss, current->sex, ',');
         // read linked list attribute
         getline(ss, token, ',');
-        while (!token.empty())
+        while (getline(ss, token, ','))
         {
             if (token.find(":") != string::npos)
             { // check if token is a course string
@@ -431,8 +432,8 @@ bool loadLinkedList(const char *filename)
                 string courseNoStr, gradeStr;
                 getline(courseSS, courseNoStr, ':');
                 getline(courseSS, gradeStr, ':');
-                int courseNo = stoi(courseNoStr);
-                int grade = stoi(gradeStr);
+                string courseNo = courseNoStr;
+                float grade = stof(gradeStr);
 
                 // add course to student's course linked list
                 student::studentCourse *courseNode = new student::studentCourse();
@@ -440,8 +441,6 @@ bool loadLinkedList(const char *filename)
                 courseNode->grade = grade;
                 current->addCourse(courseNode->courseNo);
             }
-
-            getline(ss, token, ',');
         }
 
         if (SHead == NULL)
