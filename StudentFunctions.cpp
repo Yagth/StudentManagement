@@ -229,6 +229,7 @@ void registerStudent()
 void displayAllStudents()
 {
     student *current = SHead;
+    int count = 0;
 
     if (SHead == NULL)
     {
@@ -237,8 +238,16 @@ void displayAllStudents()
     }
     while (current != NULL)
     {
+        cout << ++count << ".\t";
         current->displayStudentInfo();
         current = current->next;
+
+        if (count % 15 == 0)
+        {
+            cout << "--more--" << endl;
+            waitForUser();
+            clearScreen();
+        }
     }
 }
 

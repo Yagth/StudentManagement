@@ -112,13 +112,19 @@ void recordCourse()
 void displayAllCourses()
 {
     course *current = CHead;
+    int count = 0;
     while (current != NULL)
     {
-        cout << "course Number " << current->courseNo << endl;
-        cout << "course Title " << current->courseTitle << endl;
-        cout << "course credit Hour " << current->creditHour << endl;
-        cout << endl;
+        cout << ++count << ".\t";
+        current->displayCourseInfo();
         current = current->next;
+
+        if (count % 15 == 0)
+        {
+            cout << "--more--" << endl;
+            waitForUser();
+            clearScreen();
+        }
     }
 }
 void course::displayCourseInfo()

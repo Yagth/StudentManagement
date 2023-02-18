@@ -13,7 +13,7 @@ void clearScreen()
 
 void waitForUser()
 {
-    cout << "Press any key to go back to menu...\n";
+    cout << "Press any key to continue...\n";
 #ifdef _WIN32
     _getch();
 #else
@@ -183,6 +183,28 @@ void searchCourseD()
     }
     waitForUser();
     dispMenu();
+}
+
+void displayAllStudentsD()
+{
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--List of Students--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    displayAllStudents();
+    waitForUser();
+    dispMenu();
+}
+
+void displayAllCoursesD()
+{
+    clearScreen();
+    cout << "===================================================================" << endl;
+    cout << "\t\t\t--List of Courses--" << endl;
+    cout << "===================================================================" << endl
+         << endl;
+    displayAllCourses();
 }
 
 void dispMenu()
