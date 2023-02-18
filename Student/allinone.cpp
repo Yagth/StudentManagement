@@ -4,7 +4,7 @@ using namespace std;
 
 struct course
 {
-    int courseNo;
+    string courseNo;
     string courseTitle;
     int creditHour;
     course *next;
@@ -240,13 +240,16 @@ void registerStudent()
 int main()
 {
     registerStudent();
-    registerStudent();
-    registerStudent();
+    recordCourse();
+    student *temp = SHead;
+    course *tempCourse = CHead;
+    temp->addCourse(tempCourse->courseNo);
 
-    sortStudentByName();
+    // registerStudent();
+    // registerStudent();
+
     display();
 
-    // recordCourse();-
     // recordCourse();
     // recordCourse();
     // display(CHead);
