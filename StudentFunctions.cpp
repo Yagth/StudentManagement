@@ -71,19 +71,23 @@ void student::displayStudentInfo()
 
     if (temp == NULL)
     {
-        cout << "No registered courses" << endl;
+        cout << "\tNo registered courses" << endl;
         return;
     }
     while (temp != NULL)
     {
         course *stCourse = findCourseByNo(temp->courseNo);
-        stCourse->displayCourseInfo();
-        cout << "\tGrade: ";
 
-        if (temp->grade == -1.0)
-            cout << "Not determined" << endl;
-        else
-            cout << temp->grade << endl;
+        if (stCourse != NULL)
+        {
+            stCourse->displayCourseInfo();
+            if (temp->grade == -1.0)
+                cout << "Not determined" << endl;
+            else
+                cout << temp->grade << endl;
+            cout << "\tGrade: ";
+        }
+
         temp = temp->next;
     }
 }

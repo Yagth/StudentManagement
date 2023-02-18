@@ -78,5 +78,6 @@ void sortD();
 void deleteStudentD();
 void deleteCourseD();
 void dispMenu();
+bool saveLinkedList(const char *filename);
 
 #endif

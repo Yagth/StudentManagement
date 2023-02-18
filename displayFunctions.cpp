@@ -1,4 +1,5 @@
 #include <cstdlib>
+#include <fstream>
 #include "dataStructures.h"
 #include "CourseFunctions.cpp"
 #include "StudentFunctions.cpp"
@@ -255,6 +256,7 @@ void dispMenu()
 {
     // choice input of user
     int choice;
+    bool saved;
 
     while (true)
     {
@@ -325,11 +327,81 @@ void dispMenu()
             deleteCourseD();
             break;
         case 12:
-            // deleteStudentD();
+            saved = saveLinkedList("students");
+            if (saved)
+                cout << "Save successfull" << endl;
+            else
+                cout << "saving failed" << endl;
+            waitForUser();
             break;
         default:
             cout << "invalid input, please try again!" << endl;
         }
         clearScreen();
     }
+}
+
+bool saveLinkedList(const char *filename)
+{
+    ofstream fout(filename, ios::binary);
+
+    if (!fout)
+    {
+        cerr << "Error: failed to open file " << filename << " for writing." << std::endl;
+        return false;
+    }
+
+    // write the number of nodes in the list as first 4 bytes
+    int count = 0;
+    student *current = SHead;
+    while (current != NULL)
+    {
+        count++;
+        current = current->next;
+    }
+    fout.write(reinterpret_cast<const char *>(&count), sizeof(count));
+
+    // write each node's data as 4 bytes and address of next and previous nodes as 8 bytes
+    current = SHead;
+    while (current != NULL)
+    {
+        fout.write(reinterpret_cast<const char *>(&(current->id)), sizeof(current->id));
+        fout.write(reinterpret_cast<const char *>(&(current->firstName)), sizeof(current->firstName));
+        fout.write(reinterpret_cast<const char *>(&(current->lastName)), sizeof(current->lastName));
+        fout.write(reinterpret_cast<const char *>(&(current->age)), sizeof(current->age));
+        fout.write(reinterpret_cast<const char *>(&(current->sex)), sizeof(current->sex));
+        fout.write(reinterpret_cast<const char *>(&(current->next)), sizeof(current->next));
+        fout.write(reinterpret_cast<const char *>(&(current->prev)), sizeof(current->prev));
+
+        if (current->head != NULL) // check if student has courses
+        {
+            int courseCount = 0;
+            student::studentCourse *courseCurrent = current->head;
+            while (courseCurrent != NULL)
+            {
+                courseCount++;
+                courseCurrent = courseCurrent->next;
+            }
+
+            fout.write(reinterpret_cast<const char *>(&courseCount), sizeof(courseCount)); // write number of courses
+
+            courseCurrent = current->head;
+            while (courseCurrent != NULL)
+            {
+                fout.write(reinterpret_cast<const char *>(&(courseCurrent->courseNo)), sizeof(courseCurrent->courseNo));
+                fout.write(reinterpret_cast<const char *>(&(courseCurrent->grade)), sizeof(courseCurrent->grade));
+                courseCurrent = courseCurrent->next;
+            }
+        }
+        else
+        {
+            int courseCount = 0;
+            fout.write(reinterpret_cast<const char *>(&courseCount), sizeof(courseCount)); // write 0 if student has no courses
+        }
+
+        current = current->next;
+    }
+
+    fout.close();
+    return true;
 }
