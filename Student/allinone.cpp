@@ -8,6 +8,7 @@ struct course
     string courseTitle;
     int creditHour;
     course *next;
+
 } *CHead = NULL;
 
 struct student
@@ -19,6 +20,68 @@ struct student
     string sex;
     student *next;
     student *prev;
+    struct studentCourse
+    {
+        string courseNo;
+        float grade;
+        studentCourse *next;
+    } *head;
+
+    studentCourse *getStudentCourse(string courseNo)
+    {
+        studentCourse *temp = new studentCourse();
+        temp->courseNo = courseNo;
+        temp->grade = 0.0;
+        temp->next = NULL;
+
+        return temp;
+    }
+
+    void addCourse(string courseNo)
+    {
+        studentCourse *temp = getStudentCourse(courseNo);
+
+        if (this->head == NULL)
+        {
+            this->head = temp;
+        }
+        else
+        {
+            studentCourse *current = this->head;
+            while (current->next != NULL)
+            {
+                current = current->next;
+            }
+            current->next = temp;
+        }
+    }
+
+    studentCourse *findStudentCourse(string courseNo)
+    {
+        studentCourse *current = this->head;
+
+        if (current == NULL)
+        {
+            cout << "No registred Course" << endl;
+        }
+        else
+        {
+            while (current != NULL)
+            {
+                if (current->courseNo == courseNo)
+                {
+                    return current;
+                }
+            }
+        }
+        return NULL;
+    }
+
+    void gradeStudent(string courseNo, float grade)
+    {
+        studentCourse *courseInfo = findStudentCourse(courseNo);
+        courseInfo->grade = grade;
+    }
 } *SHead = NULL;
 
 course *getCourse()
@@ -33,7 +96,7 @@ course *getCourse()
     newcourse->next = NULL;
     return newcourse;
 }
-void insertCourse()
+void recordCourse()
 {
     course *newCourse = getCourse();
     if (CHead == NULL)
@@ -183,8 +246,8 @@ int main()
     sortStudentByName();
     display();
 
-    // insertCourse();-
-    // insertCourse();
-    // insertCourse();
+    // recordCourse();-
+    // recordCourse();
+    // recordCourse();
     // display(CHead);
 }
