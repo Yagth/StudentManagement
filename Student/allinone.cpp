@@ -162,12 +162,11 @@ course *getCourse()
     course *newcourse = new course();
     cout << "Enter Course number ";
     cin >> newcourse->courseNo;
-
-    cout << "Enter Course Title ";
-    getline(cin, newcourse->courseTitle);
-    cin >> newcourse->courseTitle;
     cout << "Enter Course Credit Hour ";
     cin >> newcourse->creditHour;
+    cout << "Enter Course Title ";
+    cin >> newcourse->courseTitle;
+
     newcourse->next = NULL;
 
     return newcourse;
