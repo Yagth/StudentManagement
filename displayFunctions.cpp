@@ -405,3 +405,81 @@ bool saveLinkedList(const char *filename)
     fout.close();
     return true;
 }
+
+bool loadLinkedList(const char *filename)
+{
+    ifstream fin(filename, ios::binary);
+
+    if (!fin)
+    {
+        cerr << "Error: failed to open file " << filename << " for reading." << endl;
+        return false;
+    }
+
+    // read the number of nodes in the list as first 4 bytes
+    int count = 0;
+    fin.read(reinterpret_cast<char *>(&count), sizeof(count));
+
+    // read each node's data as 4 bytes and address of next and previous nodes as 8 bytes
+    student *current = NULL;
+    student *prev = NULL;
+    for (int i = 0; i < count; i++)
+    {
+        current = new student;
+        current->head = NULL;
+
+        // read student data
+        fin.read(reinterpret_cast<char *>(&(current->id)), sizeof(current->id));
+        fin.read(reinterpret_cast<char *>(&(current->firstName)), sizeof(current->firstName));
+        fin.read(reinterpret_cast<char *>(&(current->lastName)), sizeof(current->lastName));
+        fin.read(reinterpret_cast<char *>(&(current->age)), sizeof(current->age));
+        fin.read(reinterpret_cast<char *>(&(current->sex)), sizeof(current->sex));
+
+        // read linked list attribute
+        int courseCount;
+        fin.read(reinterpret_cast<char *>(&courseCount), sizeof(courseCount));
+
+        for (int j = 0; j < courseCount; j++)
+        {
+            student::studentCourse *newCourse = new student::studentCourse;
+            fin.read(reinterpret_cast<char *>(&(newCourse->courseNo)), sizeof(newCourse->courseNo));
+            fin.read(reinterpret_cast<char *>(&(newCourse->grade)), sizeof(newCourse->grade));
+            newCourse->next = NULL;
+
+            // add new course to student's course list
+            if (current->head == NULL)
+            {
+                current->head = newCourse;
+            }
+            else
+            {
+                student::studentCourse *courseCurrent = current->head;
+                while (courseCurrent->next != NULL)
+                {
+                    courseCurrent = courseCurrent->next;
+                }
+                courseCurrent->next = newCourse;
+            }
+        }
+
+        fin.read(reinterpret_cast<char *>(&(current->next)), sizeof(current->next));
+        fin.read(reinterpret_cast<char *>(&(current->prev)), sizeof(current->prev));
+
+        // link current node to the previous node
+        if (prev != NULL)
+        {
+            prev->next = current;
+            current->prev = prev;
+        }
+        else
+        {
+            SHead = current;
+            current->prev = NULL;
+        }
+
+        prev = current;
+    }
+
+    fin.close();
+    return true;
+}
