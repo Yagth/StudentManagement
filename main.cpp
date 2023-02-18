@@ -2,6 +2,13 @@
 #include "StudentFunctions.cpp"
 #include "CourseFunctions.cpp"
 
+#ifdef _WIN32
+#include <conio.h> // for _getch()
+#else
+#include <unistd.h>  // for STDIN_FILENO
+#include <termios.h> // for tcgetattr(), tcsetattr(), struct termios
+#endif
+
 void clearScreen()
 {
 #ifdef _WIN32
@@ -11,15 +18,34 @@ void clearScreen()
 #endif
 }
 
+void waitForUser()
+{
+#ifdef _WIN32
+    _getch();
+#else
+    struct termios old_termios, new_termios;
+    tcgetattr(STDIN_FILENO, &old_termios);
+    new_termios = old_termios;
+    new_termios.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+    getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &old_termios);
+#endif
+}
+
 void dispMenu()
 {
+    // choice input of user
     int choice;
-    do
+
+    while (true)
     {
         clearScreen();
-
-        cout << "STUDENT MANAGEMENT MENU" << endl;
-        cout << "-----------------------" << endl;
+        // display menu
+        cout << "-----------------------------------------------------------------------" << endl;
+        cout << "WELCOME TO STUDENT RECORD MANAGEMENT SYSTEM" << endl;
+        cout << "-----------------------------------------------------------------------" << endl
+             << endl;
         cout << "1. Register Student" << endl;
         cout << "2. Register Course" << endl;
         cout << "3. Register Student to Course" << endl;
@@ -29,62 +55,60 @@ void dispMenu()
         cout << "7. Display All Students" << endl;
         cout << "8. Display All Courses" << endl;
         cout << "9. Sort Students" << endl;
-        cout << "10. Sort Students" << endl;
-        cout << "11. Delete Student" << endl;
-        cout << "12. Delete Course" << endl;
+        cout << "10. Delete Student" << endl;
+        cout << "11. Delete Course" << endl;
+        cout << "12. Save Student information to file" << endl;
         cout << "0. Exit" << endl;
-
-        cout << "Enter your choice: ";
-        cin >> choice;
+        cout << endl;
+        cout << "Enter your choice(0-12): ";
+        // enter choice
+        if (!(cin >> choice))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
 
         switch (choice)
         {
         case 0:
-            cout << "Exiting program..." << endl;
-            break;
+            return;
         case 1:
-            // Register Student
+            registerStudent();
+            waitForUser();
+            dispMenu();
             break;
         case 2:
-            // Register Course
+            recordCourse();
             break;
         case 3:
-            // Register Student to Course
+            // maintainGrades();
             break;
         case 4:
-            // Grade Student
+            // searchStudents();
             break;
         case 5:
-            // Search Student
+            // searchCourses();
             break;
         case 6:
-            // Search Course
+            // sortStudents();
             break;
         case 7:
-            // Display All Students
+            displayAllStudents();
             break;
         case 8:
-            // Display All Courses
+            displayAllCourses();
             break;
         case 9:
-            // Sort Students
+            // deleteCourses();
             break;
         case 10:
-            // Sort Students
-            break;
-        case 11:
-            // Delete Student
-            break;
-        case 12:
-            // Delete Course
+            // writeToFile();
             break;
         default:
-            cout << "Invalid choice. Please try again." << endl;
+            cout << "invalid input, please try again!" << endl;
         }
-
-        cout << endl;
-        system("pause");
-    } while (choice != 0);
+        clearScreen();
+    }
 }
 
 int main()
