@@ -85,27 +85,6 @@ struct student
         courseInfo->grade = grade;
     }
 
-    student *findStudentById(string id)
-    {
-        student *current = SHead;
-
-        if (current == NULL)
-        {
-            cout << "List is empty" << endl;
-        }
-        else
-        {
-            while (current != NULL)
-            {
-                if (current->id == id)
-                    return current;
-                current = current->next;
-            }
-            cout << "Student not found" << endl;
-            return NULL;
-        }
-    }
-
     void displayStudentInfo()
     {
         cout << "ID: " << this->id << endl;
@@ -134,34 +113,61 @@ struct student
             cout << temp->grade << endl;
     }
 
-    void displayAllStudents()
-    {
-        student *current = SHead;
+} *SHead = NULL;
 
-        if (SHead == NULL)
-        {
-            cout << "List is empty." << endl;
-            return;
-        }
+student *findStudentById(string id)
+{
+    student *current = SHead;
+
+    if (current == NULL)
+    {
+        cout << "List is empty" << endl;
+    }
+    else
+    {
         while (current != NULL)
         {
-            cout << "ID: " << current->id << endl;
-            cout << "First name: " << current->firstName << endl;
-            cout << "Last name: " << current->lastName << endl;
-            cout << "Age: " << current->age << endl;
-            cout << "Sex: " << current->sex << endl;
-
+            if (current->id == id)
+                return current;
             current = current->next;
         }
+        cout << "Student not found" << endl;
     }
-} *SHead = NULL;
+    return NULL;
+}
+
+void displayAllStudents()
+{
+    student *current = SHead;
+
+    if (SHead == NULL)
+    {
+        cout << "List is empty." << endl;
+        return;
+    }
+    while (current != NULL)
+    {
+        cout << "ID: " << current->id << endl;
+        cout << "First name: " << current->firstName << endl;
+        cout << "Last name: " << current->lastName << endl;
+        cout << "Age: " << current->age << endl;
+        cout << "Sex: " << current->sex << endl;
+
+        current = current->next;
+    }
+}
 
 course *getCourse()
 {
     course *newcourse = new course();
     cout << "Enter Course number ";
     cin >> newcourse->courseNo;
+
+    // Use cin.ignore() to discard any characters left over in the buffer
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
     cout << "Enter Course Title ";
+    // Use getline() to read a full line of input from the user
+    getline(cin, newcourse->courseTitle);
     cin >> newcourse->courseTitle;
     cout << "Enter Course Credit Hour ";
     cin >> newcourse->creditHour;
@@ -294,9 +300,9 @@ int main()
     recordCourse();
     student *temp = SHead;
     course *tempCourse = CHead;
-    temp->addCourse(tempCourse->courseNo);
+    // temp->addCourse(tempCourse->courseNo);
 
-    temp->displayStudentInfo();
+    // temp->displayStudentInfo();
     // registerStudent();
     // registerStudent();
 
