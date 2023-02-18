@@ -262,15 +262,8 @@ void sortStudentByName()
     }
 }
 
-void registerStudent()
+student *getStudent()
 {
-    student *curr = SHead;
-
-    // Check if List is not empty
-    while (SHead != NULL && curr->next != NULL)
-    {
-        curr = curr->next;
-    }
     student *st = new student();
     cout << "Enter ID : ";
     cin.ignore(); // To Clear the buffer memory before the next input
@@ -281,7 +274,7 @@ void registerStudent()
     if (temp != NULL)
     {
         cout << "Student with Id: " << st->id << " is already registered." << endl;
-        return;
+        return NULL;
     }
 
     cout << "Enter First name : ";
@@ -291,6 +284,8 @@ void registerStudent()
     cin.ignore();
     cin >> st->lastName;
     cout << "Enter Age : ";
+
+    // To check if the user has submitted a valid age.
     while (!(cin >> st->age))
     {
         cin.clear();
@@ -298,12 +293,33 @@ void registerStudent()
         cout << "\t!!Invalid input. Enter positive Integer" << endl;
         cout << "Enter Age : ";
     }
+
     cout << "Enter Sex(Male/Female) : ";
     cin.ignore();
     cin >> st->sex;
 
     st->next = NULL;
     st->prev = NULL;
+
+    return st;
+}
+
+void registerStudent()
+{
+    student *curr = SHead;
+    student *st = getStudent();
+
+    if (st == NULL)
+    {
+        cout << "Registration Not successful" << endl;
+        return;
+    }
+
+    // Check if List is not empty
+    while (SHead != NULL && curr->next != NULL)
+    {
+        curr = curr->next;
+    }
 
     if (SHead == NULL)
         SHead = st;
@@ -312,6 +328,8 @@ void registerStudent()
         curr->next = st;
         st->prev = curr;
     }
+
+    cout << "Student registration succesfull" << endl;
 }
 
 int main()
