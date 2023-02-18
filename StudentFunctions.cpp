@@ -80,12 +80,12 @@ void student::displayStudentInfo()
 
         if (stCourse != NULL)
         {
+            cout << "\tGrade: ";
             stCourse->displayCourseInfo();
             if (temp->grade == -1.0)
-                cout << "Not determined" << endl;
+                cout << "\tNot determined" << endl;
             else
-                cout << temp->grade << endl;
-            cout << "\tGrade: ";
+                cout << "\t" << temp->grade << endl;
         }
 
         temp = temp->next;

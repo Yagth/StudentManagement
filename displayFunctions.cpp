@@ -290,8 +290,10 @@ void dispMenu()
         switch (choice)
         {
         case 0:
+            saveFiles();
             cout << "Exiting..." << endl;
-            return;
+            exit(0);
+
         case 1:
             registerStudentD();
             break;
