@@ -196,18 +196,31 @@ void sortStudentByName()
         {
             index = current->next;
 
-            string fSname = current->firstName;
-            fSname = toLowerCase(fSname);
-
             while (index != NULL)
             {
-                student *temp = new student();
-                string SecSname = index->firstName;
-                SecSname = toLowerCase(SecSname);
-                if (fSname > SecSname)
+                string firstStudentName = current->firstName;
+                string SecondStudentName = index->firstName;
+
+                firstStudentName = toLowerCase(firstStudentName);
+                SecondStudentName = toLowerCase(SecondStudentName);
+
+                if (firstStudentName.compare(SecondStudentName) > 0)
                 {
                     // Swap the elements
                     swapNodes(current, index);
+                }
+                else if (firstStudentName.compare(SecondStudentName) == 0)
+                {
+                    firstStudentName = current->lastName;
+                    SecondStudentName = index->lastName;
+
+                    firstStudentName = toLowerCase(firstStudentName);
+                    SecondStudentName = toLowerCase(SecondStudentName);
+
+                    if (firstStudentName.compare(SecondStudentName) > 0)
+                    {
+                        swapNodes(current, index);
+                    }
                 }
                 index = index->next;
             }

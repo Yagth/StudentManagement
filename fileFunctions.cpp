@@ -113,7 +113,7 @@ bool loadStudents(const char *filename)
     {
         student *current = new student();
         getline(fin, line);
-        cout << "Line: " << line << endl;
+        // cout << "Line: " << line << endl;//For debugging only.
         // tokenize the line by ","
         stringstream ss(line);
         string token;

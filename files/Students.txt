@@ -1,5 +1,8 @@
-4
-Yab,Der,Der,23,Male
-ugr,nano,tech,12,male
+7
+Ugr,kidus,nigussu,23,Male
+023,Zelalem,Kibru,34,Female
+ugr,nano,yabnology,12,male
+Der,Yab,Nigusse,21,Female
+Fikir,Fikir,Endale,21,Male
+Yab,Der,Yab,23,Male
 ugr/13,nano,technology,3,Male
-Der,Yab,34,21,Female
