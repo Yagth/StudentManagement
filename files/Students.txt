@@ -1,5 +1,5 @@
 4
 Yab,Der,Der,23,Male
-Der,Yab,34,21,Female
-ugr/13,nano,technology,3,Male
 ugr,nano,tech,12,male
+ugr/13,nano,technology,3,Male
+Der,Yab,34,21,Female
